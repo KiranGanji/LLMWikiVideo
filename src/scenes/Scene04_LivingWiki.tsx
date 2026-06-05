@@ -56,14 +56,16 @@ const particleForStream = (
   source: {x: number; y: number},
   target: {x: number; y: number},
   index: number,
+  delay: number,
   cadence: number,
+  cycle: number,
 ) => {
-  const local = frame - 30 - index * cadence;
+  const local = frame - delay - index * cadence;
   if (local < 0) {
     return null;
   }
 
-  const progress = ((local % 180) / 180) % 1;
+  const progress = ((local % cycle) / cycle) % 1;
   const control = createControlPoint(source, target, source.x < target.x ? 140 : -140);
   return {
     progress,
@@ -78,27 +80,34 @@ const Scene04: React.FC<Scene04Props> = ({
   showRajCallback = true,
 }) => {
   const frame = useCurrentFrame();
-  const sceneOpacity = interpolate(frame, [0, 60], [0.6, 1], {
+  const scale = (value: number) => (value / 600) * durationInFrames;
+  const scaledUpdateEvents = updateEvents.map((event) => ({
+    ...event,
+    frame: scale(event.frame),
+  }));
+  const sceneOpacity = interpolate(frame, [0, scale(60)], [0.6, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const labelFade = interpolate(frame, [30, 60], [0, 1], {
+  const labelFade = interpolate(frame, [scale(30), scale(60)], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const lastEventFrame = [...updateEvents]
+  const lastEventFrame = [...scaledUpdateEvents]
     .reverse()
     .find((event) => frame >= event.frame)?.frame;
   const secondsSinceUpdate =
-    lastEventFrame === undefined ? Math.floor(Math.max(0, frame - 60) / 30) : Math.floor((frame - lastEventFrame) / 30);
+    lastEventFrame === undefined
+      ? Math.floor(Math.max(0, frame - scale(60)) / 30)
+      : Math.floor((frame - lastEventFrame) / 30);
   const timestampFlash = lastEventFrame
-    ? interpolate(frame, [lastEventFrame, lastEventFrame + 12], [1, 0], {
+    ? interpolate(frame, [lastEventFrame, lastEventFrame + scale(12)], [1, 0], {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
       })
     : 0;
-  const agentPulse = updateEvents.reduce((max, event) => {
-    const pulse = interpolate(frame, [event.frame, event.frame + 16], [1, 0], {
+  const agentPulse = scaledUpdateEvents.reduce((max, event) => {
+    const pulse = interpolate(frame, [event.frame, event.frame + scale(16)], [1, 0], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
@@ -106,10 +115,10 @@ const Scene04: React.FC<Scene04Props> = ({
   }, 0);
   const rajVisible =
     showRajCallback &&
-    frame >= 492 &&
-    frame <= 552;
+    frame >= scale(492) &&
+    frame <= scale(552);
   const rajOpacity = rajVisible
-    ? interpolate(frame, [492, 504, 540, 552], [0, 1, 1, 0], {
+    ? interpolate(frame, [scale(492), scale(504), scale(540), scale(552)], [0, 1, 1, 0], {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
       })
@@ -134,13 +143,18 @@ const Scene04: React.FC<Scene04Props> = ({
 
       {primaryNodeData.map((node) => {
         const point = percentToPoint(node.position);
-        const latestPulse = updateEvents
+        const latestPulse = scaledUpdateEvents
           .filter((event) => event.node === node.label)
           .reduce((max, event) => {
-            const progress = interpolate(frame, [event.frame + 24, event.frame + 40], [0, 1], {
-              extrapolateLeft: 'clamp',
-              extrapolateRight: 'clamp',
-            });
+            const progress = interpolate(
+              frame,
+              [event.frame + scale(24), event.frame + scale(40)],
+              [0, 1],
+              {
+                extrapolateLeft: 'clamp',
+                extrapolateRight: 'clamp',
+              },
+            );
             return Math.max(max, progress);
           }, 0);
 
@@ -194,16 +208,21 @@ const Scene04: React.FC<Scene04Props> = ({
         );
       })}
 
-      {updateEvents.map((event, index) => {
+      {scaledUpdateEvents.map((event, index) => {
         const point = percentToPoint(
           primaryNodeData.find((node) => node.label === event.node)!.position,
         );
-        const packetProgress = interpolate(frame, [event.frame, event.frame + 36], [0, 1], {
-          extrapolateLeft: 'clamp',
-          extrapolateRight: 'clamp',
-        });
+        const packetProgress = interpolate(
+          frame,
+          [event.frame, event.frame + scale(36)],
+          [0, 1],
+          {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          },
+        );
         const active =
-          frame >= event.frame && frame <= event.frame + 40;
+          frame >= event.frame && frame <= event.frame + scale(40);
 
         if (!active) {
           return null;
@@ -275,7 +294,15 @@ const Scene04: React.FC<Scene04Props> = ({
               />
             </svg>
             {new Array(Math.max(4, Math.round(updateFrequency * 4))).fill(true).map((_, index) => {
-              const particle = particleForStream(frame, source, ingestionPoint, index, 20);
+              const particle = particleForStream(
+                frame,
+                source,
+                ingestionPoint,
+                index,
+                scale(30),
+                scale(20),
+                scale(180),
+              );
               if (!particle) {
                 return null;
               }

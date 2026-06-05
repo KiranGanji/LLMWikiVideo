@@ -98,22 +98,22 @@ export const narration: Record<string, SceneNarration> = {
   },
   scene05: {
     voiceover:
-      "We're starting in Payment Integrity because the impact is immediate - faster investigations, fewer false positives, analysts productive in days instead of months. But the capability we've built can reach much further. It can serve as the blueprint for an organization-wide wiki at UHG, the foundation for any complex business use case, and a context engineering layer for every team building agents of their own.",
+      "This is what sets it apart from traditional RAG. In a traditional setup, documents sit as vectors in a store, and the connections between them are computed at query time - every question kicks off a similarity search, hoping the right context surfaces. We've inverted that. The connections are made the moment new information arrives. As policies shift, as SMEs share context, as systems evolve - the agent wires each new piece into the index right then, linking it to the nodes it affects. By the time a query lands, the work is already done. It's not a search, it's a lookup. Vector-less by design - structured, current, and built for agents.",
     captions: [
       {
-        start: 28,
-        end: 168,
-        text: 'Payment Integrity is the first proof point, not the final boundary.',
+        start: 102,
+        end: 405,
+        text: 'Traditional RAG computes connections at query time.',
       },
       {
-        start: 186,
-        end: 324,
-        text: 'The architecture can scale across the enterprise.',
+        start: 438,
+        end: 698,
+        text: 'This index wires connections the moment information arrives.',
       },
       {
-        start: 330,
-        end: 470,
-        text: 'A context layer for every team building agents.',
+        start: 709,
+        end: 889,
+        text: 'It is not a search. It is a lookup.',
       },
     ],
   },

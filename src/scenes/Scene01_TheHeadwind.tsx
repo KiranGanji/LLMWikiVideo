@@ -24,7 +24,8 @@ const Scene01: React.FC<Scene01Props> = ({
   glowIntensity = 0.3,
 }) => {
   const frame = useCurrentFrame();
-  const coolDown = interpolate(frame, [300, 330], [1, 0.8], {
+  const scale = (value: number) => (value / 390) * durationInFrames;
+  const coolDown = interpolate(frame, [scale(300), scale(330)], [1, 0.8], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -60,17 +61,22 @@ const Scene01: React.FC<Scene01Props> = ({
         }}
       >
         {fragmentLayout.slice(0, fragmentCount).map((fragment, index) => {
-          const enterStart = index * 8;
+          const enterStart = index * scale(8);
           const enterSpring = spring({
             fps: canvas.fps,
             frame: Math.max(0, frame - enterStart),
             config: springs.gentle,
           });
-          const enterOpacity = interpolate(frame, [enterStart, enterStart + 25], [0, 1], {
-            easing: easings.outExpo,
-            extrapolateLeft: 'clamp',
-            extrapolateRight: 'clamp',
-          });
+          const enterOpacity = interpolate(
+            frame,
+            [enterStart, enterStart + scale(25)],
+            [0, 1],
+            {
+              easing: easings.outExpo,
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            },
+          );
           const depth = depthMap[fragment.depth];
           const x = fragment.x + sineMix(frame, fragment.period, fragment.driftX, fragment.phase);
           const y =

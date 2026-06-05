@@ -15,8 +15,8 @@ interface Scene02Props {
 const barrierX = 1086;
 const impactY = 520;
 
-const rippleProgress = (frame: number, start: number) => {
-  return interpolate(frame, [start, start + 30], [0, 1], {
+const rippleProgress = (frame: number, start: number, span: number) => {
+  return interpolate(frame, [start, start + span], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -27,83 +27,82 @@ const Scene02: React.FC<Scene02Props> = ({
   collisionCount = 2,
 }) => {
   const frame = useCurrentFrame();
-  const cameraScale = interpolate(frame, [150, 240], [1, 0.95], {
+  const scale = (value: number) => (value / 390) * durationInFrames;
+  const cameraScale = interpolate(frame, [scale(150), scale(240)], [1, 0.95], {
     easing: easings.inOutSine,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const barrierReveal = interpolate(frame, [60, 90], [0, 0.6], {
+  const barrierReveal = interpolate(frame, [scale(60), scale(90)], [0, 0.6], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const barrierDissolve = interpolate(frame, [240, 300], [1, 0], {
+  const barrierDissolve = interpolate(frame, [scale(240), scale(300)], [1, 0], {
     easing: easings.outExpo,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const warmShift = interpolate(frame, [150, 240], [0, 1], {
+  const warmShift = interpolate(frame, [scale(150), scale(240)], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const orientProgress = interpolate(frame, [250, 330], [0, 1], {
+  const orientProgress = interpolate(frame, [scale(250), scale(330)], [0, 1], {
     easing: easings.outExpo,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const fragmentFade = interpolate(frame, [150, 240], [1, 0.35], {
+  const fragmentFade = interpolate(frame, [scale(150), scale(240)], [1, 0.35], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
   const dotReveal = spring({
     fps: canvas.fps,
-    frame: Math.max(0, frame - 246),
+    frame: Math.max(0, frame - scale(246)),
     config: springs.standard,
   });
 
   let agentX = -220;
-  if (frame < 90) {
-    agentX = interpolate(frame, [0, 90], [-220, 960], {
+  if (frame < scale(90)) {
+    agentX = interpolate(frame, [0, scale(90)], [-220, 960], {
       easing: easings.outQuart,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (frame < 120) {
-    agentX = interpolate(frame, [90, 120], [960, 840], {
+  } else if (frame < scale(120)) {
+    agentX = interpolate(frame, [scale(90), scale(120)], [960, 840], {
       easing: easings.outExpo,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (frame < 145) {
-    agentX = interpolate(frame, [120, 145], [840, 970], {
+  } else if (frame < scale(145)) {
+    agentX = interpolate(frame, [scale(120), scale(145)], [840, 970], {
       easing: easings.outQuart,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (frame < 175) {
-    agentX = interpolate(frame, [145, 175], [970, 885], {
+  } else if (frame < scale(175)) {
+    agentX = interpolate(frame, [scale(145), scale(175)], [970, 885], {
       easing: easings.outExpo,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (frame < 240) {
-    agentX = interpolate(frame, [175, 240], [885, 860], {
+  } else if (frame < scale(240)) {
+    agentX = interpolate(frame, [scale(175), scale(240)], [885, 860], {
       easing: easings.inOutSine,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (frame < 330) {
-    agentX = interpolate(frame, [240, 330], [860, 1122], {
+  } else if (frame < scale(330)) {
+    agentX = interpolate(frame, [scale(240), scale(330)], [860, 1122], {
       easing: easings.outExpo,
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
   } else {
-    agentX = 1122 + sineMix(frame, 90, 10);
+    agentX = 1122 + sineMix(frame, scale(90), 10);
   }
 
-  const agentY = 520 + sineMix(frame, 90, 14, 0.4);
-  const firstRipple = rippleProgress(frame, 90);
-  const secondRipple = rippleProgress(frame, 145);
+  const agentY = 520 + sineMix(frame, scale(90), 14, 0.4);
 
   return (
     <Background glowPosition="topLeft" intensity={0.36}>
@@ -149,8 +148,8 @@ const Scene02: React.FC<Scene02Props> = ({
       </div>
 
       {new Array(collisionCount).fill(true).map((_, collisionIndex) => {
-        const start = collisionIndex === 0 ? 90 : 145;
-        const progress = rippleProgress(frame, start);
+        const start = collisionIndex === 0 ? scale(90) : scale(145);
+        const progress = rippleProgress(frame, start, scale(30));
         return (
           <div
             key={`ripple-${collisionIndex}`}
@@ -198,7 +197,7 @@ const Scene02: React.FC<Scene02Props> = ({
 
       {barrierDissolve < 1
         ? new Array(24).fill(true).map((_, index) => {
-            const emberProgress = interpolate(frame, [240, 330], [0, 1], {
+            const emberProgress = interpolate(frame, [scale(240), scale(330)], [0, 1], {
               extrapolateLeft: 'clamp',
               extrapolateRight: 'clamp',
             });
@@ -285,7 +284,7 @@ const Scene02: React.FC<Scene02Props> = ({
           transform: 'translateX(-50%)',
           display: 'flex',
           gap: 14,
-          opacity: interpolate(frame, [330, 390], [0, 1], {
+          opacity: interpolate(frame, [scale(330), scale(390)], [0, 1], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
           }),
@@ -297,11 +296,16 @@ const Scene02: React.FC<Scene02Props> = ({
         }}
       >
         {'What if knowledge was built for agents?'.split(' ').map((word, index) => {
-          const wordOpacity = interpolate(frame, [332 + index * 5, 352 + index * 5], [0, 1], {
-            easing: easings.outExpo,
-            extrapolateLeft: 'clamp',
-            extrapolateRight: 'clamp',
-          });
+          const wordOpacity = interpolate(
+            frame,
+            [scale(332 + index * 5), scale(352 + index * 5)],
+            [0, 1],
+            {
+              easing: easings.outExpo,
+              extrapolateLeft: 'clamp',
+              extrapolateRight: 'clamp',
+            },
+          );
 
           return (
             <span

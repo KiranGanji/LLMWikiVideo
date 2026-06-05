@@ -30,34 +30,35 @@ const Scene03: React.FC<Scene03Props> = ({
   placeholderCount = 6,
 }) => {
   const frame = useCurrentFrame();
-  const labelOpacity = interpolate(frame, [390, 450], [0, 1], {
+  const scale = (value: number) => (value / 690) * durationInFrames;
+  const labelOpacity = interpolate(frame, [scale(390), scale(450)], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const queryProgress = interpolate(frame, [610, 670], [0, 1], {
+  const queryProgress = interpolate(frame, [scale(610), scale(670)], [0, 1], {
     easing: easings.outExpo,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const agentProgress = interpolate(frame, [600, 650], [0, 1], {
+  const agentProgress = interpolate(frame, [scale(600), scale(650)], [0, 1], {
     easing: easings.outQuart,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const queryFlash = interpolate(frame, [632, 648, 668], [0, 1, 0], {
+  const queryFlash = interpolate(frame, [scale(632), scale(648), scale(668)], [0, 1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const expansionPulse = interpolate(frame, [560, 590, 620], [0, 1, 0], {
+  const expansionPulse = interpolate(frame, [scale(560), scale(590), scale(620)], [0, 1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const queryAgentX = interpolate(frame, [600, 650], [710, 906], {
+  const queryAgentX = interpolate(frame, [scale(600), scale(650)], [710, 906], {
     easing: easings.outExpo,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const queryAgentY = interpolate(frame, [600, 650], [812, 680], {
+  const queryAgentY = interpolate(frame, [scale(600), scale(650)], [812, 680], {
     easing: easings.outExpo,
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -96,14 +97,15 @@ const Scene03: React.FC<Scene03Props> = ({
 
       {nodeData.map((node) => {
         const point = percentToPoint(node.position);
+        const appearAt = scale(node.appearAtFrame);
         const appear = spring({
           fps: canvas.fps,
-          frame: Math.max(0, frame - node.appearAtFrame),
+          frame: Math.max(0, frame - appearAt),
           config: springs.standard,
         });
         const lineProgress = interpolate(
           frame,
-          [node.appearAtFrame, node.appearAtFrame + 24],
+          [appearAt, appearAt + scale(24)],
           [0, 1],
           {
             easing: easings.outExpo,
@@ -113,7 +115,7 @@ const Scene03: React.FC<Scene03Props> = ({
         );
         const initialPacket = interpolate(
           frame,
-          [node.appearAtFrame + 10, node.appearAtFrame + 28],
+          [appearAt + scale(10), appearAt + scale(28)],
           [0, 1],
           {
             extrapolateLeft: 'clamp',
@@ -124,7 +126,7 @@ const Scene03: React.FC<Scene03Props> = ({
         const queryPacket = isQueryNode && showAgentQuery ? queryProgress : null;
         const queryNodeGlow =
           isQueryNode && showAgentQuery
-            ? interpolate(frame, [655, 678, 690], [0, 1, 0.25], {
+            ? interpolate(frame, [scale(655), scale(678), scale(690)], [0, 1, 0.25], {
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',
               })
@@ -137,9 +139,9 @@ const Scene03: React.FC<Scene03Props> = ({
               to={point}
               progress={lineProgress}
               packetProgress={
-                frame < node.appearAtFrame + 36 ? initialPacket : queryPacket
+                frame < appearAt + scale(36) ? initialPacket : queryPacket
               }
-              pulsing={frame < node.appearAtFrame + 40}
+              pulsing={frame < appearAt + scale(40)}
               bend={node.cluster === 'business' ? -100 : 100}
               highlight={queryNodeGlow}
             />
@@ -221,11 +223,16 @@ const Scene03: React.FC<Scene03Props> = ({
 
       {placeholderAngles.slice(0, placeholderCount).map((angle, index) => {
         const point = arcPoint(corePoint, 380 + (index % 2) * 56, (angle * Math.PI) / 180);
-        const revealStart = index === 0 ? 520 : index < 3 ? 545 : 570;
-        const placeholderOpacity = interpolate(frame, [revealStart, revealStart + 24], [0, 1], {
-          extrapolateLeft: 'clamp',
-          extrapolateRight: 'clamp',
-        });
+        const revealStart = scale(index === 0 ? 520 : index < 3 ? 545 : 570);
+        const placeholderOpacity = interpolate(
+          frame,
+          [revealStart, revealStart + scale(24)],
+          [0, 1],
+          {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+          },
+        );
 
         return (
           <div
@@ -270,11 +277,11 @@ const Scene03: React.FC<Scene03Props> = ({
           <ConnectionLine
             from={{x: queryAgentX + 20, y: queryAgentY - 18}}
             to={corePoint}
-            progress={interpolate(frame, [626, 646], [0, 1], {
+            progress={interpolate(frame, [scale(626), scale(646)], [0, 1], {
               extrapolateLeft: 'clamp',
               extrapolateRight: 'clamp',
             })}
-            packetProgress={interpolate(frame, [626, 646], [0, 1], {
+            packetProgress={interpolate(frame, [scale(626), scale(646)], [0, 1], {
               extrapolateLeft: 'clamp',
               extrapolateRight: 'clamp',
             })}
