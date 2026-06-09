@@ -7,21 +7,21 @@ export const canvas = {
 } as const;
 
 export const colors = {
-  bgDeep: '#070B1F',
-  bgMid: '#0E1742',
-  bgGlow: '#1A2868',
-  uhgBlue: '#002677',
-  brightBlue: '#00B0E2',
-  cyanGlow: '#7EE8FA',
-  optumGold: '#F2B544',
-  nodeSurface: 'rgba(255,255,255,0.06)',
-  nodeBorder: 'rgba(126, 232, 250, 0.25)',
-  nodeBorderHot: 'rgba(126, 232, 250, 0.72)',
-  textPrimary: '#F4F7FF',
-  textSecondary: '#A9B4D4',
-  textMuted: '#5D6B8F',
-  barrier: 'rgba(126, 232, 250, 0.35)',
-  barrierWarm: 'rgba(242, 181, 68, 0.4)',
+  bgDeep: '#F6FAFD',
+  bgMid: '#EAF2FA',
+  bgGlow: '#D8E7F8',
+  uhgBlue: '#27589F',
+  brightBlue: '#2D8DC9',
+  cyanGlow: '#57A9D2',
+  optumGold: '#C69237',
+  nodeSurface: 'rgba(255,255,255,0.82)',
+  nodeBorder: 'rgba(39, 88, 159, 0.22)',
+  nodeBorderHot: 'rgba(45, 141, 201, 0.62)',
+  textPrimary: '#132742',
+  textSecondary: '#3E5876',
+  textMuted: '#70849B',
+  barrier: 'rgba(87, 169, 210, 0.28)',
+  barrierWarm: 'rgba(198, 146, 55, 0.3)',
 } as const;
 
 export const fontFamilies = {
@@ -43,9 +43,9 @@ export const springs = {
 } as const;
 
 export const shadows = {
-  soft: '0 25px 90px rgba(0, 0, 0, 0.28)',
-  glow: '0 0 40px rgba(126, 232, 250, 0.25)',
-  intenseGlow: '0 0 80px rgba(0, 176, 226, 0.32)',
+  soft: '0 24px 80px rgba(45, 74, 110, 0.14)',
+  glow: '0 0 36px rgba(87, 169, 210, 0.18)',
+  intenseGlow: '0 0 72px rgba(45, 141, 201, 0.24)',
 } as const;
 
 export const scenePadding = {

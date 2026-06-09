@@ -233,7 +233,7 @@ Animated SVG path between two `{x, y}` points. Draws on with `stroke-dasharray` 
 > "Every day, our Payment Integrity teams work against a quiet headwind. The knowledge we need — claim adjudication logic, edit rules, exclusion criteria, where the data actually lives — is real. It's just scattered. Across decks, wikis, tickets, and the heads of a few people who've been here long enough to remember."
 
 #### Visual Concept
-We open in a deep, dimensional dark-navy space. Twelve to fifteen "knowledge fragments" — small floating cards rendered as frosted-glass tiles — drift slowly through 3D space at three depth layers. Each card shows a real artifact: a Confluence snippet, a SQL fragment, a policy PDF cover, a Slack message, a sticky note that reads *"ask Raj?"*. They are disconnected, slightly tilted at random angles, drifting on independent vectors. The whole frame feels like an attic of knowledge — valuable, but ungoverned.
+We open in a deep, dimensional dark-navy space. Twelve to fifteen "knowledge fragments" — small floating cards rendered as frosted-glass tiles — drift slowly through 3D space at three depth layers. Each card shows a real artifact: a Confluence snippet, a SQL fragment, a policy PDF cover, a Slack message, a sticky note that reads *"ask Tom?"*. They are disconnected, slightly tilted at random angles, drifting on independent vectors. The whole frame feels like an attic of knowledge — valuable, but ungoverned.
 
 #### Animation Breakdown
 
@@ -266,7 +266,7 @@ Use a mix of these:
 - *"Edit 4023: Mod-25 + E&M same DOS"* (mono)
 - *"COSMOS.CLM_DTL"* (mono)
 - *"Exclusion list — Q2 refresh?"*
-- *"Policy update: see Raj's email"*
+- *"Policy update: see Tom's email"*
 - *"FWAE intake form"*
 - *"Adjudication routing — Tier 3"*
 - *"SELECT * FROM clm WHERE ..."* (mono)
@@ -500,11 +500,11 @@ Each stream:
 - Font: JetBrains Mono, 22px, `textSecondary`, opacity 0.7
 
 **Frames 480–600 (0:16–0:20): Tribal knowledge moment**
-- As narrator says "Tribal knowledge stops being tribal," subtly emphasize the "SME conversations" stream — it pulses brighter, more particles flow, and a single update lands on a node that briefly shows the text *"From: Raj's morning sync"* under it (the same "Raj" referenced in Scene 1's sticky note — a callback).
+- As narrator says "Tribal knowledge stops being tribal," subtly emphasize the "SME conversations" stream — it pulses brighter, more particles flow, and a single update lands on a node that briefly shows the text *"From: Tom's morning sync"* under it (the same "Tom" referenced in Scene 1's sticky note — a callback).
 - The callback should be subtle — leadership will notice it on second watch, which makes the video reward re-watching.
 
 #### Wow factor
-The **callback to "Raj"** from Scene 1 is the emotional landing. It transforms the abstract "tribal knowledge" into a person. Don't overdo the callback — small label text, 1.5 seconds, then it fades. The fact that it's there is what matters.
+The **callback to "Tom"** from Scene 1 is the emotional landing. It transforms the abstract "tribal knowledge" into a person. Don't overdo the callback — small label text, 1.5 seconds, then it fades. The fact that it's there is what matters.
 
 Beyond that: the **streams must feel alive.** Each particle should have slight variance — speed, opacity, path curvature. Avoid any sense of regular emission rate. Think of it like rain or fireflies, not a conveyor belt.
 
@@ -513,7 +513,7 @@ Beyond that: the **streams must feel alive.** Each particle should have slight v
 interface Scene04Props {
   streamLabels?: { top: string; right: string; bottom: string; left: string };
   updateFrequency?: number;       // updates per 100 frames, default 1.5
-  showRajCallback?: boolean;      // default true
+  showTomCallback?: boolean;      // default true
 }
 ```
 
@@ -709,7 +709,7 @@ Before declaring complete, verify:
 - [ ] No frame in the video is completely static — there is always at least one element in motion (particles, drift, glow oscillation)
 - [ ] Camera moves are subtle and continuous, never abrupt
 - [ ] Node materializations in Scene 3 are time-synced to narration (±5 frames acceptable)
-- [ ] The "Raj" callback in Scene 4 is present and readable for ≥45 frames
+- [ ] The "Tom" callback in Scene 4 is present and readable for ≥45 frames
 - [ ] The pullback in Scene 5 feels earned — not too fast, not lingering
 - [ ] Scene 6 has zero unnecessary motion — restraint is the point
 - [ ] Final render at 1080p is under 50MB; at 4K under 200MB

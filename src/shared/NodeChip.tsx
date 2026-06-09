@@ -45,7 +45,7 @@ export const NodeChip: React.FC<NodeChipProps> = ({
 
   return (
     <div
-      className="rounded-[28px] border bg-white/[0.03] backdrop-blur-md"
+      className="rounded-[28px] border backdrop-blur-md"
       style={{
         position: 'relative',
         display: 'inline-flex',
@@ -53,8 +53,10 @@ export const NodeChip: React.FC<NodeChipProps> = ({
         gap: 12,
         padding: `${sizing.paddingY}px ${sizing.paddingX}px`,
         borderColor,
-        background:
-          'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.04) 100%)',
+        background: `linear-gradient(180deg, ${withAlpha(
+          '#FFFFFF',
+          0.94,
+        )} 0%, ${withAlpha(colors.bgDeep, 0.78)} 100%)`,
         boxShadow: `${shadows.soft}, 0 0 32px ${withAlpha(
           glowColor,
           haloOpacity,
@@ -99,11 +101,11 @@ export const NodeChip: React.FC<NodeChipProps> = ({
           inset: 0,
           borderRadius: 28,
           background: `linear-gradient(120deg, transparent 20%, ${withAlpha(
-            '#FFFFFF',
-            0.06 + sineMix(frame, 45, 0.03, 0.6),
+            colors.brightBlue,
+            0.04 + sineMix(frame, 45, 0.025, 0.6),
           )} 44%, transparent 70%)`,
-          opacity: 0.8,
-          mixBlendMode: 'screen',
+          opacity: 0.75,
+          mixBlendMode: 'soft-light',
         }}
       />
     </div>

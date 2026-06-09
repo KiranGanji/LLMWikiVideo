@@ -67,7 +67,7 @@ export const IndexCore: React.FC<IndexCoreProps> = ({
               rx={radius + ring * 8}
               ry={(radius + ring * 8) * (0.44 + ring * 0.06)}
               fill="none"
-              stroke={withAlpha(colors.cyanGlow, 0.16 + ring * 0.08)}
+              stroke={withAlpha(colors.uhgBlue, 0.16 + ring * 0.08)}
               strokeWidth={1.2}
               transform={`rotate(${rotation * (ring % 2 === 0 ? 1 : -1) * 2} ${center} ${center})`}
             />
@@ -75,14 +75,14 @@ export const IndexCore: React.FC<IndexCoreProps> = ({
         })}
         <polygon
           points={polygonPoints({x: center, y: center}, size * 0.32, 6)}
-          fill={withAlpha(colors.brightBlue, 0.08)}
-          stroke={withAlpha(colors.cyanGlow, 0.66)}
+          fill={withAlpha(colors.brightBlue, 0.07)}
+          stroke={withAlpha(colors.cyanGlow, 0.58)}
           strokeWidth={2.6}
         />
         <polygon
           points={polygonPoints({x: center, y: center}, size * 0.24, 6)}
-          fill={withAlpha('#FFFFFF', 0.04)}
-          stroke={withAlpha(colors.brightBlue, 0.48)}
+          fill={withAlpha(colors.bgDeep, 0.84)}
+          stroke={withAlpha(colors.brightBlue, 0.44)}
           strokeWidth={1.8}
         />
         {!simplified
@@ -101,7 +101,7 @@ export const IndexCore: React.FC<IndexCoreProps> = ({
                     6,
                   )}
                   fill={withAlpha(colors.cyanGlow, 0.06 + flicker * 0.08 + cellPulse * 0.18)}
-                  stroke={withAlpha(colors.textPrimary, 0.2 + cellPulse * 0.3)}
+                  stroke={withAlpha(colors.textSecondary, 0.24 + cellPulse * 0.28)}
                   strokeWidth={1}
                 />
               );
@@ -112,7 +112,7 @@ export const IndexCore: React.FC<IndexCoreProps> = ({
           cy={center}
           r={size * 0.06}
           fill={withAlpha(colors.optumGold, 0.12 + flicker * 0.14)}
-          stroke={withAlpha('#FFFFFF', 0.26)}
+          stroke={withAlpha(colors.textSecondary, 0.3)}
           strokeWidth={1.2}
         />
       </svg>

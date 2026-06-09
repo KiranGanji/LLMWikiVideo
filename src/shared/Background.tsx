@@ -23,7 +23,7 @@ const grainDataUrl = (() => {
     for (let x = 0; x < 72; x += 4) {
       const value = (noise2D('uhg-grain', x / 18, y / 18) + 1) / 2;
       const opacity = (0.02 + value * 0.12).toFixed(3);
-      const fill = value > 0.55 ? '#FFFFFF' : '#7EE8FA';
+      const fill = value > 0.55 ? '#FFFFFF' : '#A9CAE0';
       svg += `<rect x="${x}" y="${y}" width="4" height="4" fill="${fill}" fill-opacity="${opacity}" />`;
     }
   }
@@ -50,13 +50,13 @@ export const Background: React.FC<BackgroundProps> = ({
         background: `
           radial-gradient(circle at 50% 20%, ${withAlpha(
             colors.bgGlow,
-            0.34 * intensity,
+            0.58 * intensity,
           )} 0%, transparent 44%),
           radial-gradient(circle at 20% 12%, ${withAlpha(
             accentColor,
-            0.1 * intensity,
+            0.14 * intensity,
           )} 0%, transparent 30%),
-          linear-gradient(180deg, ${colors.bgMid} 0%, ${colors.bgDeep} 54%, #040816 100%)
+          linear-gradient(180deg, ${colors.bgMid} 0%, ${colors.bgDeep} 54%, #EEF5FB 100%)
         `,
       }}
     >
@@ -66,8 +66,8 @@ export const Background: React.FC<BackgroundProps> = ({
           inset: -120,
           transform: `translate(${driftX}px, ${driftY}px) scale(1.06)`,
           background:
-            'radial-gradient(circle at center, rgba(255,255,255,0.03) 0%, transparent 58%)',
-          opacity: 0.9,
+            'radial-gradient(circle at center, rgba(255,255,255,0.28) 0%, transparent 58%)',
+          opacity: 0.72,
         }}
       />
       <GlowOrb
@@ -90,8 +90,8 @@ export const Background: React.FC<BackgroundProps> = ({
           position: 'absolute',
           inset: 0,
           backgroundImage: grainDataUrl,
-          opacity: 0.045,
-          mixBlendMode: 'soft-light',
+          opacity: 0.03,
+          mixBlendMode: 'multiply',
         }}
       />
       <div
@@ -99,7 +99,7 @@ export const Background: React.FC<BackgroundProps> = ({
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at center, transparent 46%, rgba(0,0,0,0.18) 100%)',
+            'radial-gradient(circle at center, transparent 42%, rgba(76,102,132,0.08) 100%)',
         }}
       />
       {children}

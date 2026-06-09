@@ -19,7 +19,7 @@ export const GradientText: React.FC<GradientTextProps> = ({
     <span
       style={{
         display: 'inline-block',
-        backgroundImage: `linear-gradient(120deg, ${colors.textPrimary} 0%, ${colors.cyanGlow} 52%, ${colors.brightBlue} 100%)`,
+        backgroundImage: `linear-gradient(120deg, ${colors.textPrimary} 0%, ${colors.uhgBlue} 52%, ${colors.brightBlue} 100%)`,
         WebkitBackgroundClip: 'text',
         backgroundClip: 'text',
         color: 'transparent',

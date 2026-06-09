@@ -20,16 +20,16 @@ interface Scene05Props {
   durationInFrames: number;
 }
 
-const ragHub = {x: 500, y: 560};
-const ragQueryAgent = {x: 290, y: 760};
+const ragHub = {x: 500, y: 620};
+const ragQueryAgent = {x: 290, y: 820};
 const lookupCore = {x: 1380, y: 500};
 const lookupAgent = {x: 1560, y: 780};
 
 const ragDocuments = [
-  {label: 'Policy PDF', x: 300, y: 270},
-  {label: 'SME transcript', x: 560, y: 230},
-  {label: 'Change ticket', x: 370, y: 430},
-  {label: 'System table', x: 660, y: 400},
+  {label: 'Policy PDF', x: 300, y: 330},
+  {label: 'SME transcript', x: 560, y: 300},
+  {label: 'Change ticket', x: 370, y: 490},
+  {label: 'System table', x: 660, y: 460},
 ];
 
 const lookupNodes = [
@@ -40,7 +40,7 @@ const lookupNodes = [
 ];
 
 const ingestSources = [
-  {label: 'Policy shift', x: 1250, y: 110, color: colors.brightBlue, node: 'Policy intent', start: 30},
+  {label: 'Policy shift', x: 1250, y: 210, color: colors.brightBlue, node: 'Policy intent', start: 30},
   {label: 'SME note', x: 1050, y: 650, color: colors.optumGold, node: 'SME context', start: 58},
   {label: 'System change', x: 1710, y: 220, color: colors.cyanGlow, node: 'System mappings', start: 86},
 ] as const;
@@ -133,13 +133,13 @@ const Scene05: React.FC<Scene05Props> = ({durationInFrames}) => {
           position: 'absolute',
           left: 208,
           top: 132,
-          color: '#FFFFFF',
+          color: colors.textPrimary,
           fontFamily: fontFamilies.display,
-          fontSize: 40,
+          fontSize: 30,
           fontWeight: 700,
           letterSpacing: 0.8,
           opacity: leftReveal,
-          textShadow: `0 0 28px ${withAlpha(colors.cyanGlow, 0.14)}`,
+          textShadow: `0 0 22px ${withAlpha(colors.brightBlue, 0.1)}`,
         }}
       >
         Traditional RAG
@@ -148,10 +148,10 @@ const Scene05: React.FC<Scene05Props> = ({durationInFrames}) => {
         style={{
           position: 'absolute',
           left: 208,
-          top: 172,
-          color: withAlpha('#FFFFFF', 0.9),
+          top: 170,
+          color: withAlpha(colors.textPrimary, 0.9),
           fontFamily: fontFamilies.body,
-          fontSize: 24,
+          fontSize: 18,
           letterSpacing: 0.2,
           lineHeight: 1.35,
           maxWidth: 500,
@@ -217,9 +217,12 @@ const Scene05: React.FC<Scene05Props> = ({durationInFrames}) => {
               padding: '18px 20px',
               borderRadius: 24,
               border: `1px solid ${withAlpha(colors.textPrimary, 0.22)}`,
-              background: withAlpha(colors.bgMid, 0.88),
-              boxShadow: `0 18px 40px ${withAlpha('#000000', 0.24)}`,
-              color: '#FFFFFF',
+              background: `linear-gradient(180deg, ${withAlpha(
+                '#FFFFFF',
+                0.94,
+              )} 0%, ${withAlpha(colors.bgDeep, 0.78)} 100%)`,
+              boxShadow: `0 18px 40px ${withAlpha(colors.uhgBlue, 0.12)}`,
+              color: colors.textPrimary,
               fontFamily: fontFamilies.body,
               fontSize: 22,
               fontWeight: 600,
@@ -241,7 +244,7 @@ const Scene05: React.FC<Scene05Props> = ({durationInFrames}) => {
           height: 88,
           borderRadius: '50%',
           border: `1px solid ${withAlpha(colors.textSecondary, 0.2)}`,
-          background: withAlpha(colors.bgDeep, 0.72),
+          background: withAlpha('#FFFFFF', 0.84),
           opacity: leftReveal * ragFade,
         }}
       />
@@ -323,8 +326,8 @@ const Scene05: React.FC<Scene05Props> = ({durationInFrames}) => {
         style={{
           position: 'absolute',
           left: 230,
-          bottom: 210,
-          color: withAlpha('#FFFFFF', 0.88),
+          bottom: 138,
+          color: withAlpha(colors.textSecondary, 0.92),
           fontFamily: fontFamilies.body,
           fontSize: 22,
           letterSpacing: 2.2,

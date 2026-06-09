@@ -54,7 +54,7 @@ export const fragmentLayout: FragmentDefinition[] = [
   },
   {
     id: 'frag-4',
-    label: "Policy update: see Raj's email",
+    label: "Policy update: see Tom's email",
     x: 1310,
     y: 232,
     depth: 'front',
@@ -158,7 +158,7 @@ export const fragmentLayout: FragmentDefinition[] = [
   },
   {
     id: 'frag-12',
-    label: 'ask Raj?',
+    label: 'ask Tom?',
     x: 760,
     y: 760,
     depth: 'front',

@@ -47,8 +47,10 @@ export const KnowledgeFragmentCard: React.FC<KnowledgeFragmentCardProps> = ({
         borderRadius: 24,
         padding: '18px 20px',
         border: `1px solid ${colors.nodeBorder}`,
-        background:
-          'linear-gradient(180deg, rgba(255,255,255,0.12) 0%, rgba(255,255,255,0.05) 100%)',
+        background: `linear-gradient(180deg, ${withAlpha(
+          '#FFFFFF',
+          0.9,
+        )} 0%, ${withAlpha(colors.bgDeep, 0.74)} 100%)`,
         backdropFilter: 'blur(14px)',
         boxShadow: shadows.soft,
         transform: `translate(-50%, -50%) rotate(${rotation}deg) scale(${scale})`,
@@ -62,8 +64,8 @@ export const KnowledgeFragmentCard: React.FC<KnowledgeFragmentCardProps> = ({
             display: 'inline-flex',
             padding: '4px 8px',
             borderRadius: 999,
-            background: withAlpha(colors.cyanGlow, 0.12),
-            color: colors.cyanGlow,
+            background: withAlpha(colors.brightBlue, 0.12),
+            color: colors.uhgBlue,
             fontFamily: fontFamilies.mono,
             fontSize: 11,
             fontWeight: 700,

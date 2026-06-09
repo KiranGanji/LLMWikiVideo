@@ -56,14 +56,14 @@ export const AgentIcon: React.FC<AgentIconProps> = ({
             })}
             <polygon
               points={polygonPoints({x: center, y: center}, size * 0.18, 6)}
-              fill={withAlpha(colors.brightBlue, 0.34)}
+              fill={withAlpha(colors.brightBlue, 0.26)}
               stroke={withAlpha(glowColor, 0.8)}
               strokeWidth={2.2}
             />
             <polygon
               points={polygonPoints({x: center, y: center}, size * 0.1, 6)}
-              fill={withAlpha('#FFFFFF', 0.14)}
-              stroke={withAlpha('#FFFFFF', 0.34)}
+              fill={withAlpha(colors.bgDeep, 0.88)}
+              stroke={withAlpha(colors.textPrimary, 0.34)}
               strokeWidth={1}
             />
           </>
@@ -78,7 +78,7 @@ export const AgentIcon: React.FC<AgentIconProps> = ({
             <polygon
               points={`${center},${size * 0.22} ${size * 0.64},${size * 0.66} ${size * 0.36},${size * 0.66}`}
               fill={withAlpha(glowColor, 0.28)}
-              stroke={withAlpha('#FFFFFF', 0.26)}
+              stroke={withAlpha(colors.textPrimary, 0.26)}
               strokeWidth={1.2}
             />
             <circle

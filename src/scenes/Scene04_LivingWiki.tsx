@@ -19,7 +19,7 @@ interface Scene04Props {
   durationInFrames: number;
   streamLabels?: {top: string; right: string; bottom: string; left: string};
   updateFrequency?: number;
-  showRajCallback?: boolean;
+  showTomCallback?: boolean;
 }
 
 const streamDefaults = {
@@ -77,7 +77,7 @@ const Scene04: React.FC<Scene04Props> = ({
   durationInFrames,
   streamLabels = streamDefaults,
   updateFrequency = 1.5,
-  showRajCallback = true,
+  showTomCallback = true,
 }) => {
   const frame = useCurrentFrame();
   const scale = (value: number) => (value / 600) * durationInFrames;
@@ -113,11 +113,11 @@ const Scene04: React.FC<Scene04Props> = ({
     });
     return Math.max(max, pulse);
   }, 0);
-  const rajVisible =
-    showRajCallback &&
+  const tomVisible =
+    showTomCallback &&
     frame >= scale(492) &&
     frame <= scale(552);
-  const rajOpacity = rajVisible
+  const tomOpacity = tomVisible
     ? interpolate(frame, [scale(492), scale(504), scale(540), scale(552)], [0, 1, 1, 0], {
         extrapolateLeft: 'clamp',
         extrapolateRight: 'clamp',
@@ -184,7 +184,7 @@ const Scene04: React.FC<Scene04Props> = ({
                 glowColor={latestPulse > 0.1 ? colors.optumGold : colors.cyanGlow}
               />
             </div>
-            {rajOpacity > 0 && node.label === 'Policy intent' ? (
+            {tomOpacity > 0 && node.label === 'Policy intent' ? (
               <div
                 style={{
                   position: 'absolute',
@@ -198,10 +198,10 @@ const Scene04: React.FC<Scene04Props> = ({
                   fontFamily: fontFamilies.body,
                   fontSize: 16,
                   color: colors.textPrimary,
-                  opacity: rajOpacity,
+                  opacity: tomOpacity,
                 }}
               >
-                From: Raj&apos;s morning sync
+                From: Tom&apos;s morning sync
               </div>
             ) : null}
           </div>
